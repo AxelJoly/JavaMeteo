@@ -7,48 +7,69 @@ import java.util.Date;
  */
 public class InfoMeteo {
 
-    private String temperature;
-    private Ville ville;
-    private String date;
-    private String meteoLogo;
+    protected String morningTemperature;
+    protected String afTemperature;
+    protected String city;
+    protected String country;
+    protected Date date;
+    protected String morningImage;
+    protected String afImage;
 
-    public InfoMeteo(){
-        this.temperature = "yolo";
+
+
+    public String getMorningTemperature() {
+        return morningTemperature;
     }
 
-
-
-    public String getTemperature() {
-       int value = Integer.parseInt(this.temperature);
-        value = value - 275;
-        return Integer.toString(value);
+    public void setMorningTemperature(String morningTemperature) {
+        this.morningTemperature = morningTemperature;
     }
 
-    public void setTemperature(String temperature) {
-        this.temperature = temperature;
+    public String getAfTemperature() {
+        return afTemperature;
     }
 
-    public Ville getVille() {
-        return ville;
+    public void setAfTemperature(String afTemperature) {
+        this.afTemperature = afTemperature;
     }
 
-    public void setVille(Ville ville) {
-        this.ville = ville;
+    public String getCity() {
+        return city;
     }
 
-    public String getDate() {
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public String getMeteoLogo() {
-        return meteoLogo;
+    public String getMorningImage() {
+        return morningImage;
     }
 
-    public void setMeteoLogo(String meteoLogo) {
-        this.meteoLogo = meteoLogo;
+    public void setMorningImage(String morningImage) {
+        this.morningImage = morningImage;
+    }
+
+    public String getAfImage() {
+        return afImage;
+    }
+
+    public void setAfImage(String afImage) {
+        this.afImage = afImage;
     }
 }

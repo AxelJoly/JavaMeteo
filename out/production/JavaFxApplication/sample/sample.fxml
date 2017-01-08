@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -21,88 +22,91 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <AnchorPane prefHeight="600.0" prefWidth="800.0">
+      <AnchorPane>
          <children>
-            <SplitPane dividerPositions="0.29797979797979796" layoutX="72.0" layoutY="79.0" prefHeight="521.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="79.0">
+            <SplitPane dividerPositions="0.29797979797979796" layoutX="72.0" layoutY="79.0" opacity="0.9" prefHeight="521.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="79.0">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <ListView layoutX="17.0" layoutY="84.0" prefHeight="598.0" prefWidth="234.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <ListView fx:id="bookmarks" editable="true" layoutX="17.0" layoutY="84.0" onMouseClicked="#handleMouseClick" prefHeight="598.0" prefWidth="234.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="574.0" prefWidth="556.0">
                      <children>
-                        <Label layoutX="138.0" layoutY="52.0" prefHeight="46.0" prefWidth="96.0" text="Sanary">
-                           <font>
-                              <Font size="26.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="234.0" layoutY="60.0" prefHeight="25.0" prefWidth="25.0" text="le">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="263.0" layoutY="60.0" text="19/12/2016">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </Label>
-                        <SplitPane dividerPositions="0.5018050541516246" layoutX="24.0" layoutY="155.0" prefHeight="364.0" prefWidth="509.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="23.0" AnchorPane.topAnchor="155.0">
+                        <ImageView fitHeight="528.0" fitWidth="844.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/plage.jpg" />
+                           </image>
+                        </ImageView>
+                        <SplitPane dividerPositions="0.5" layoutX="63.0" layoutY="101.0" opacity="0.9" prefHeight="381.0" prefWidth="430.0" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0" AnchorPane.topAnchor="101.0">
                           <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                 <children>
-                                    <ImageView fitHeight="157.0" fitWidth="155.0" layoutX="61.0" layoutY="77.0">
-                                       <image>
-                                          <Image url="@images/soleil.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Label layoutX="83.0" layoutY="31.0" prefHeight="46.0" prefWidth="110.0" text="Ce matin">
-                                       <font>
-                                          <Font size="25.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="31.0" layoutY="206.0" prefHeight="126.0" prefWidth="190.0" text="-15000°">
-                                       <font>
-                                          <Font size="48.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="362.0" prefWidth="229.0">
                                  <children>
-                                    <ImageView fitHeight="157.0" fitWidth="155.0" layoutX="48.0" layoutY="65.0">
+                                    <ImageView fx:id="afImage" fitHeight="157.0" fitWidth="155.0" layoutX="25.0" layoutY="70.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="70.0">
+                                       <image>
+                                          <Image url="@images/nuageux.png" />
+                                       </image>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </ImageView>
+                                    <Label layoutX="61.0" layoutY="23.0" prefHeight="46.0" prefWidth="120.0" text="Morning" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="20.0">
+                                       <font>
+                                          <Font name="Back to Black Demo" size="27.0" />
+                                       </font>
+                                    </Label>
+                                    <Text fx:id="morningTemperature" layoutX="-6.0" layoutY="311.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6°" textAlignment="CENTER" wrappingWidth="216.99999570846558" AnchorPane.leftAnchor="-6.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="250.0">
+                                       <font>
+                                          <Font name="Back to Black Demo" size="52.0" />
+                                       </font></Text>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="350.0" prefWidth="213.0">
+                                 <children>
+                                    <ImageView fx:id="morningImage" fitHeight="157.0" fitWidth="155.0" layoutX="19.0" layoutY="69.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="70.0">
                                        <image>
                                           <Image url="@images/soleil.png" />
                                        </image>
                                     </ImageView>
-                                    <Label layoutX="66.0" layoutY="28.0" prefHeight="46.0" prefWidth="144.0" text="Après-Midi">
+                                    <Label layoutX="44.0" layoutY="22.0" prefHeight="46.0" prefWidth="120.0" text="Afternoon" textAlignment="CENTER" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="20.0">
                                        <font>
-                                          <Font size="25.0" />
+                                          <Font name="Back to Black Demo" size="27.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="30.0" layoutY="205.0" prefHeight="126.0" prefWidth="190.0" text="-15000°">
+                                    <Text fx:id="afTemperature" layoutX="-2.0" layoutY="285.8046875" strokeType="OUTSIDE" strokeWidth="0.0" text="12°" textAlignment="CENTER" wrappingWidth="217.0000011920929" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="-5.0" AnchorPane.topAnchor="251.0">
                                        <font>
-                                          <Font size="48.0" />
+                                          <Font name="Back to Black Demo" size="52.0" />
                                        </font>
-                                    </Label>
-                                    <Text fx:id="yolo" layoutX="108.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                                    </Text>
                                  </children>
                               </AnchorPane>
                           </items>
                         </SplitPane>
-                        <Button layoutX="-1.0" layoutY="155.0" mnemonicParsing="false" prefHeight="364.0" prefWidth="30.0" text="&lt;" />
-                        <Button layoutX="527.0" layoutY="155.0" mnemonicParsing="false" prefHeight="364.0" prefWidth="30.0" text="&gt;" />
+                        <Button fx:id="lastButton" layoutX="22.0" layoutY="106.0" mnemonicParsing="false" onMousePressed="#last" opacity="0.79" prefHeight="364.0" prefWidth="30.0" text="&lt;" />
+                        <Button fx:id="nextButton" layoutX="497.0" layoutY="111.0" mnemonicParsing="false" onMousePressed="#next" opacity="0.75" prefHeight="364.0" prefWidth="30.0" text="&gt;" />
+                        <Text fx:id="city" layoutX="-6.0" layoutY="47.0" stroke="#905757" strokeType="OUTSIDE" strokeWidth="0.0" text="Sanary" textAlignment="CENTER" wrappingWidth="568.8403052123891">
+                           <font>
+                              <Font name="Back to Black Demo" size="34.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="date" layoutX="5.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="02/01/2016" textAlignment="CENTER" wrappingWidth="558.1120910644531" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="-7.112091064453125" AnchorPane.topAnchor="58.830078125">
+                           <font>
+                              <Font name="Back to Black Demo" size="31.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
               </items>
             </SplitPane>
-            <ImageView fitHeight="50.0" fitWidth="90.0" layoutX="680.0" layoutY="8.0">
+            <Button fx:id="add" disable="true" layoutX="219.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#add" text="Ajouter" />
+            <Button fx:id="delete" disable="true" layoutX="291.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#delete" text="Supprimer" />
+            <Button fx:id="ville" layoutX="145.0" layoutY="45.0" mnemonicParsing="false" onMousePressed="#findCity" prefHeight="27.0" prefWidth="63.0" text="Ville" />
+            <Button fx:id="bookmarksBtn" layoutX="14.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#bookmarksInit" text="Bookmarks : OFF" />
+            <ImageView fitHeight="50.0" fitWidth="90.0" layoutX="686.0" layoutY="14.0">
                <image>
                   <Image url="@images/logo.png" />
                </image>
             </ImageView>
-            <Button layoutX="9.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#changeTemperature" text="Ajouter" />
-            <Button layoutX="92.0" layoutY="44.0" mnemonicParsing="false" text="Supprimer" />
          </children>
       </AnchorPane>
    </children>
