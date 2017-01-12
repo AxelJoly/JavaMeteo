@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.MeteoController">
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.jfx.MeteoController">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -75,7 +75,7 @@
                               </AnchorPane>
                           </items>
                         </SplitPane>
-                        <Button fx:id="lastButton" layoutX="22.0" layoutY="106.0" mnemonicParsing="false" onMousePressed="#last" opacity="0.79" prefHeight="364.0" prefWidth="30.0" text="&lt;" visible="false" />
+                        <Button fx:id="lastButton" layoutX="22.0" layoutY="106.0" mnemonicParsing="false" onMousePressed="#last" opacity="0.79" prefHeight="364.0" prefWidth="30.0" text="&lt;" />
                         <Button fx:id="nextButton" layoutX="497.0" layoutY="111.0" mnemonicParsing="false" onMousePressed="#next" opacity="0.75" prefHeight="364.0" prefWidth="30.0" text="&gt;" />
                         <Text fx:id="city" layoutX="-3.0" layoutY="37.0" stroke="#905757" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome on board!" textAlignment="CENTER" wrappingWidth="568.8403052123891">
                            <font>

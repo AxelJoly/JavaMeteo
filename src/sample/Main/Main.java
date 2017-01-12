@@ -1,41 +1,67 @@
 package sample.Main;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sample.Controller.MeteoController;
+import sample.Controller.MainController;
+import sample.jfx.MeteoView;
+import com.apple.eawt.Application;
 
-import java.util.ArrayList;
+import javax.swing.*;
+import java.awt.*;
+import java.net.URL;
+import java.util.concurrent.CountDownLatch;
 
-public class Main extends Application {
+public class Main extends JFrame{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
-    protected MeteoController meteoController = new MeteoController();
+    public Main(){
+        try {
+            Application macApp = Application.getApplication();
+            macApp.setDockIconImage(new ImageIcon (getClass().getResource("icon.png")).getImage());
+        }catch(Exception e){
 
-
-
-
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("../sample.fxml"));
-        primaryStage.setTitle("Weather App");
-      /*  for(int i = 0; i < meteoController.getBookmarks().getItems().size() ; i++){
-            LOGGER.info("value  " + i + " : " + meteoController.getBookmarksItem(i));
-        }*/
-        primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(root, 800, 600));
-        primaryStage.show();
-
+        }
     }
 
+    public static void main(String[] args) {
+            new Main();
 
-    public static void main(String[] args) throws Exception{
+        try {
+            CountDownLatch latch = new CountDownLatch(1);
+            new Thread(new Runnable() {
 
-        launch(args);
+                @Override
+                public void run() {
+                    MeteoView.Launch(latch);
+                    //Application.launch(FieldJavaFxView.class, new String[]{});
+                }
+
+            }).start();
+
+            latch.await(); // wait start in FieldJavaFxView class finish, thx CountDownLatch
+            //Thread.sleep(1000);
+
+
+        } catch (InterruptedException e) {
+
+        }
+
+
+        MeteoView jfxView = MeteoView.getInstance();
+        MainController controller = new MainController(jfxView);
+
+
+
+
+        jfxView.initialize(controller);
+
+        jfxView.display();
+
+        // controller.displayViews();
+
+        // set default value
     }
+
 }
