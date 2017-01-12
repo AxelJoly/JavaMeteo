@@ -3,6 +3,10 @@ Sanary
 Six-Fours
 Brest
 Marseille
-Seoul
 Tokyo
 Hiroshima
+Seoul
+Sherbrook
+Sherbrooke
+London
+Annemasse

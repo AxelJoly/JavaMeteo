@@ -190,6 +190,7 @@ public class SaxReader implements ContentHandler{
             if(boolMorning==3) {
 
                 info.setMorningTemperature(attributes.getValue(1));
+
                 boolMorning++;
 
             }else if(boolAf ==1){
@@ -233,7 +234,7 @@ public class SaxReader implements ContentHandler{
     @Override
     public void startPrefixMapping(String arg0, String arg1) throws SAXException {
         // TODO Auto-generated method stub
-        //   System.out.println("valeur de arg0 = " +arg0);
+
 
     }
 

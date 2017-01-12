@@ -27,7 +27,7 @@ public class Main extends Application {
       /*  for(int i = 0; i < meteoController.getBookmarks().getItems().size() ; i++){
             LOGGER.info("value  " + i + " : " + meteoController.getBookmarksItem(i));
         }*/
-
+        primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
 
@@ -35,9 +35,6 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws Exception{
-
-
-
 
         launch(args);
     }

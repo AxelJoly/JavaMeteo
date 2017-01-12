@@ -32,18 +32,21 @@ import java.util.*;
 /**
  * Created by axel on 19/12/2016.
  */
-public class MeteoController extends Observable {
+public class MeteoController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MeteoController.class);
+
     //private String url = "http://www.infoclimat.fr/public-api/gfs/xml?_ll=43.94834,4.80892&_auth=ABpQRwB%2BUnAFKFViBnBXflM7BzJdK1RzA39VNl8xAn8CaANjVD9VNFc8VyoALwMzAi9TOwg3CDgDaQdiWigEeABgUDQAYFI1BWxVPwY3V3xTfwdlXWdUcwN%2FVTpfMAJ%2FAmMDY1QxVSlXP1c9AC4DNQIxUzoIKAgvA2EHY1ozBG8Aa1AyAGZSNAVpVTQGKVd8U2UHZ11kVGoDYFVmXzsCaAJoA2ZUMVU2V2lXPQAuAzQCM1MwCDQIMANoB2RaNQR4AHxQTQAQUi0FKlV1BmNXJVN9BzJdPFQ4&_c=f30d5acf5e18de4f0299";
+
     private String url = "http://api.openweathermap.org/data/2.5/forecast?q=quebec%2Cca&APPID=0062ef1b5a55a820248ae7cdda426cd0&mode=xml";
+
     private InfoMeteo meteo;
+
     private PrintWriter out;
+
     private SaxReader pp = null;
+
     private int nbWindow = 0;
-
-
-
 
     private ArrayList<String> values;
 
@@ -71,29 +74,34 @@ public class MeteoController extends Observable {
     @FXML
     private Button bookmarksBtn;
 
-
-
     @FXML
     private Button add;
 
     @FXML
     private Button delete;
 
+    @FXML
+    private Button lastButton;
 
+    @FXML
+    private Button nextButton;
 
     protected ListIterator<InfoMeteo> iter;
 
+    private int day;
+
     public MeteoController() {
        // bookmarksInit();
-
+        this.day = 0;
 
     }
 
 
 
-
+    // Initialise les bookmarks
     @FXML
     public void bookmarksInit() {
+        this.day = 0;
             System.out.print(bookmarksBtn.getText());
         if(bookmarksBtn.getText().equals("Bookmarks : OFF")) {
             add.setDisable(false);
@@ -125,7 +133,7 @@ public class MeteoController extends Observable {
     @FXML
     private void add() {
 
-
+        this.day = 0;
         TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Add city");
         dialog.setHeaderText("Add your favorite city!");
@@ -165,6 +173,9 @@ public class MeteoController extends Observable {
     }
 
     @FXML public void handleMouseClick(MouseEvent arg0) {
+        this.day = 0;
+        this.lastButton.setVisible(false);
+        this.nextButton.setVisible(true);
         System.out.println("clicked on " + bookmarks.getSelectionModel().getSelectedItem());
         this.url = "http://api.openweathermap.org/data/2.5/forecast?q=" + bookmarks.getSelectionModel().getSelectedItem() + "%2Cfr&APPID=0062ef1b5a55a820248ae7cdda426cd0&mode=xml";
         parse(url);
@@ -173,8 +184,23 @@ public class MeteoController extends Observable {
         meteo = iter.next();
         //meteo = pp.tabDay.get(0);
 
-        afTemperature.setText(meteo.getAfTemperature());
-        morningTemperature.setText(meteo.getMorningTemperature());
+        float valueMorning = Float.parseFloat(meteo.getMorningTemperature());
+        LOGGER.info(Float.toString(valueMorning));
+        float valueAf = Float.parseFloat(meteo.getAfTemperature());
+        LOGGER.info(Float.toString(valueAf));
+
+        if(valueMorning > 100.0) {
+            afTemperature.setText(Double.toString(valueAf - 273.15).substring(0,4));
+        }else{
+            afTemperature.setText(Double.toString(valueAf).substring(0,4));
+        }
+        if(valueAf > 100.0) {
+            morningTemperature.setText(Double.toString(valueMorning - 273.15).substring(0,4));
+        }else{
+            morningTemperature.setText(Double.toString(valueMorning).substring(0,4));
+        }
+
+
         city.setText(meteo.getCity());
         date.setText(meteo.getDate().toString());
         LOGGER.info(meteo.getAfTemperature());
@@ -206,8 +232,17 @@ public class MeteoController extends Observable {
             meteo = iter.next();
             //meteo = pp.tabDay.get(0);
 
-            afTemperature.setText(meteo.getAfTemperature());
-            morningTemperature.setText(meteo.getMorningTemperature());
+            float valueMorning = Float.parseFloat(meteo.getMorningTemperature());
+            LOGGER.info(Float.toString(valueMorning));
+            float valueAf = Float.parseFloat(meteo.getAfTemperature());
+            LOGGER.info(Float.toString(valueAf));
+
+            if(valueMorning > 100.0) {
+                afTemperature.setText(Double.toString(valueAf - 273.15).substring(0,4));
+            }else{
+                afTemperature.setText(Double.toString(valueAf).substring(0,4));
+            }
+
             city.setText(meteo.getCity());
             date.setText(meteo.getDate().toString());
             LOGGER.info(meteo.getAfTemperature());
@@ -219,7 +254,7 @@ public class MeteoController extends Observable {
             setImage(meteo);
         }
     }
-    @FXML
+
     private void setImage(InfoMeteo meteo){
         String urlimgmatin=null;
 
@@ -288,57 +323,107 @@ public class MeteoController extends Observable {
     }
 
 private void convert() {
-    double d = Double.parseDouble(meteo.getAfTemperature());
-    int i = new Double(d).intValue();
-    double decimale = d - (new Double(i).doubleValue());
-    if (decimale > 0.5) {
-        int temp = Integer.parseInt(meteo.getAfTemperature()) + 1;
-        String temp2 = String.valueOf(temp);
-        meteo.setAfTemperature(temp2);
 
-    } else {
-        int temp = Integer.parseInt(meteo.getAfTemperature());
-        String temp2 = String.valueOf(temp);
-        meteo.setAfTemperature(temp2);
-    }
+    if(meteo != null) {
+        double d = Double.parseDouble(meteo.getAfTemperature());
+        int i = new Double(d).intValue();
+        double decimale = d - (new Double(i).doubleValue());
+        if (decimale > 0.5) {
+            int temp = Integer.parseInt(meteo.getAfTemperature()) + 1;
+            String temp2 = String.valueOf(temp);
+            meteo.setAfTemperature(temp2);
 
-    d = Double.parseDouble(meteo.getMorningTemperature());
-    i = new Double(d).intValue();
-    decimale = d - (new Double(i).doubleValue());
-    if (decimale > 0.5) {
-        int temp = Integer.parseInt(meteo.getMorningTemperature()) + 1;
-        String temp2 = String.valueOf(temp);
-        meteo.setMorningTemperature(temp2);
+        } else {
+            int temp = Integer.parseInt(meteo.getAfTemperature());
+            String temp2 = String.valueOf(temp);
+            meteo.setAfTemperature(temp2);
+        }
 
-    } else {
-        int temp = Integer.parseInt(meteo.getMorningTemperature());
-        String temp2 = String.valueOf(temp);
-        meteo.setMorningTemperature(temp2);
+        d = Double.parseDouble(meteo.getMorningTemperature());
+        i = new Double(d).intValue();
+        decimale = d - (new Double(i).doubleValue());
+        if (decimale > 0.5) {
+            int temp = Integer.parseInt(meteo.getMorningTemperature()) + 1;
+            String temp2 = String.valueOf(temp);
+            meteo.setMorningTemperature(temp2);
+
+        } else {
+            int temp = Integer.parseInt(meteo.getMorningTemperature());
+            String temp2 = String.valueOf(temp);
+            meteo.setMorningTemperature(temp2);
+        }
     }
 }
 
     @FXML
     private void next(){
 
+        if(meteo != null) {
+            this.lastButton.setVisible(true);
+            if (this.day == 3) {
+                this.nextButton.setVisible(false);
+            }
+            meteo = iter.next();
+            float valueMorning = Float.parseFloat(meteo.getMorningTemperature());
+            LOGGER.info(Float.toString(valueMorning));
+            float valueAf = Float.parseFloat(meteo.getAfTemperature());
+            LOGGER.info(Float.toString(valueAf));
 
-        meteo = iter.next();
-        afTemperature.setText(meteo.getAfTemperature());
-        morningTemperature.setText(meteo.getMorningTemperature());
-        city.setText(meteo.getCity());
-        date.setText(meteo.getDate().toString());
-        setImage(meteo);
+            if (valueMorning > 100.0) {
+                afTemperature.setText(Double.toString(valueAf - 273.15).substring(0, 4));
+            } else {
+                afTemperature.setText(Double.toString(valueAf).substring(0, 4));
+            }
+            if (valueAf > 100.0) {
+                morningTemperature.setText(Double.toString(valueMorning - 273.15).substring(0, 4));
+            } else {
+                morningTemperature.setText(Double.toString(valueMorning).substring(0, 4));
+            }
 
 
+            city.setText(meteo.getCity());
+            date.setText(meteo.getDate().toString());
+            setImage(meteo);
+            this.day++;
+            LOGGER.info(Integer.toString(this.day));
+
+
+        }
     }
 
     @FXML
     private void last(){
-        meteo = iter.previous();
-        afTemperature.setText(meteo.getAfTemperature());
-        morningTemperature.setText(meteo.getMorningTemperature());
-        city.setText(meteo.getCity());
-        date.setText(meteo.getDate().toString());
-        setImage(meteo);
+
+            this.nextButton.setVisible(true);
+            if(this.day == 0){
+                this.lastButton.setVisible(false);
+            }
+            meteo = iter.previous();
+           float valueMorning = Float.parseFloat(meteo.getMorningTemperature());
+            LOGGER.info(Float.toString(valueMorning));
+            float valueAf = Float.parseFloat(meteo.getAfTemperature());
+            LOGGER.info(Float.toString(valueAf));
+
+            if (valueMorning > 100.0) {
+                afTemperature.setText(Double.toString(valueAf - 273.15).substring(0,4));
+            } else {
+                afTemperature.setText(Double.toString(valueAf).substring(0,4));
+            }
+            if (valueAf > 100.0) {
+                morningTemperature.setText(Double.toString(valueMorning - 273.15).substring(0,4));
+            } else {
+                morningTemperature.setText(Double.toString(valueMorning).substring(0,4));
+            }
+
+
+
+            city.setText(meteo.getCity());
+            date.setText(meteo.getDate().toString());
+            setImage(meteo);
+            this.day--;
+            LOGGER.info(Integer.toString(this.day));
+
+
     }
 
 
@@ -348,8 +433,7 @@ private void convert() {
 
     public void setBookmarks(String value) {
        bookmarks.getItems().add(bookmarks.getItems().size(), value);
-        setChanged();
-        notifyObservers(this.bookmarks);
+
     }
 
     public int getNbWindow() {
