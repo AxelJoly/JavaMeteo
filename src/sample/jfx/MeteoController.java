@@ -51,8 +51,6 @@ public class MeteoController {
 
     private int boolAction;
 
-    private int nbWindow = 0;
-
     private ArrayList<String> values;
 
     @FXML
@@ -103,13 +101,14 @@ public class MeteoController {
 
 
 
+    /**
+     *  Initialise les bookmarks
+     */
 
-
-    // Initialise les bookmarks
     @FXML
     public void bookmarksInit() {
         this.day = 0;
-            System.out.print(bookmarksBtn.getText());
+
         if(bookmarksBtn.getText().equals("Bookmarks : OFF")) {
             add.setDisable(false);
             delete.setDisable(false);
@@ -117,7 +116,7 @@ public class MeteoController {
             //  bookmarks = new ListView<>();
             ReadFile read = new ReadFile();
             read.loadBookmarks(this.values, "bookmarks.txt");
-            System.out.println("mes valeurs :" + values);
+            LOGGER.info("mes valeurs :" + values);
             for (int i = 0; i < values.size(); i++) {
                 setBookmarks(values.get(i));
             }
@@ -136,6 +135,9 @@ public class MeteoController {
 
     }
 
+    /**
+     *  ajoute une ville a notre fichier .txt
+     */
 
     @FXML
     private void add() {
@@ -154,7 +156,7 @@ public class MeteoController {
 
 
             setBookmarks(result.get());
-            LOGGER.info("Ca passe");
+
             try (FileWriter fw = new FileWriter("bookmarks.txt", true);
                  BufferedWriter bw = new BufferedWriter(fw);
                  PrintWriter out = new PrintWriter(bw)) {
@@ -169,6 +171,10 @@ public class MeteoController {
 
     }
 
+    /**
+     *  Supprime l'element selectionné du fichier .txt
+     */
+
     @FXML
     private void delete() {
         ReadFile read = new ReadFile();
@@ -179,7 +185,9 @@ public class MeteoController {
 
     }
 
-
+    /**
+     *  Notifie au controller le clic sur un element de la liste view
+     */
 
     @FXML public void handleMouseClick(MouseEvent arg0) {
         this.day = 0;
@@ -189,6 +197,10 @@ public class MeteoController {
         this.boolAction=1;
 
     }
+
+    /**
+     *  ouvre une pop-up ou une textfield est a renseigner pour afficher la ville souhaité
+     */
 
     @FXML
     private void findCity(){
@@ -210,8 +222,13 @@ public class MeteoController {
 
     }
 
+    /**
+     *  Set les images du temps a partir des données de notre objet
+     */
+
     public void setImage(InfoMeteo meteo){
         String urlimgmatin=null;
+
 
         if(meteo.getMorningImage().equals("clear sky")){
             urlimgmatin="soleil.png";
@@ -277,6 +294,9 @@ public class MeteoController {
 
     }
 
+    /**
+     *  Affiche le jour suivant
+     */
 
     @FXML
     private void next(){
@@ -285,6 +305,10 @@ public class MeteoController {
 
     }
 
+    /**
+     *  Affiche le jour précédent
+     */
+
     @FXML
     private void last(){
 
@@ -292,29 +316,36 @@ public class MeteoController {
 
     }
 
+    /**
+     *  Recupère la valeur de l'indice de notre ListView
+     */
 
     public String getBookmarksItem(int i) {
+
         return bookmarks.getItems().get(i);
     }
+
+
+    /**
+     *  Set la valeur du parametre dans notre ListView
+     */
 
     public void setBookmarks(String value) {
        bookmarks.getItems().add(bookmarks.getItems().size(), value);
 
     }
 
-    public int getNbWindow() {
-        return nbWindow;
-    }
-
-    public void setNbWindow(int nbWindow) {
-        this.nbWindow = nbWindow;
-    }
+    /**
+     *  Recupère notre ListView
+     */
 
     public ListView<String> getBookmarks() {
         return bookmarks;
     }
 
-
+    /**
+     * Update toutes les textfield de notre view
+     */
 
     public void updateTextField(InfoMeteo day) {
 
@@ -342,19 +373,23 @@ public class MeteoController {
 
         city.setText(day.getCity());
         float valueMorning = Float.parseFloat(day.getMorningTemperature());
+        int finalValue1 = (int) valueMorning;
         LOGGER.info(Float.toString(valueMorning));
         float valueAf = Float.parseFloat(day.getAfTemperature());
+        int finalValue2 = (int) valueAf;
         LOGGER.info(Float.toString(valueAf));
 
-        if(valueMorning > 100.0) {
-            afTemperature.setText(Double.toString(valueAf - 273.15).substring(0,4));
+
+        if(valueMorning > 100) {
+
+            afTemperature.setText(Integer.toString(finalValue2 - 273) + "°");
         }else{
-            afTemperature.setText(Double.toString(valueAf).substring(0,4));
+            afTemperature.setText(Integer.toString(finalValue2) + "°");
         }
-        if(valueAf > 100.0) {
-            morningTemperature.setText(Double.toString(valueMorning - 273.15).substring(0,4) + "°");
+        if(valueAf > 100) {
+            morningTemperature.setText(Integer.toString(finalValue1 - 273) + "°");
         }else{
-            morningTemperature.setText(Double.toString(valueMorning).substring(0,4) + "°");
+            morningTemperature.setText(Integer.toString(finalValue1) + "°");
         }
 
     }

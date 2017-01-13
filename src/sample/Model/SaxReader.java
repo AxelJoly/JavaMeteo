@@ -214,6 +214,8 @@ public class SaxReader extends Observable implements ContentHandler{
                 info.setAfImage(attributes.getValue(1));
 
                 if(info.getMorningImage()==null){
+                   // System.out.println("quel temps fait il? " + attributes.getValue(1));
+
                     info.setMorningImage(attributes.getValue(1));
                 }
 

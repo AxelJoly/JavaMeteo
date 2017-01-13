@@ -27,6 +27,9 @@ public class MeteoView extends Application implements Observer {
     private static MeteoView instance = null;
     private static CountDownLatch latch;
 
+    /**
+     *  Appelle la méthode start() de JFX
+     */
 
     public static void Launch() {
         MeteoView.launch();
@@ -46,6 +49,9 @@ public class MeteoView extends Application implements Observer {
     private MainController controller = null;
     private MeteoController inCtrl = null;
 
+    /**
+     *  Affiche notre view
+     */
 
     public void display() {
         Platform.runLater(new Runnable(){
@@ -56,7 +62,9 @@ public class MeteoView extends Application implements Observer {
         });
     }
 
-
+    /**
+     *  Ferme notre view
+     */
 
     public void close() {
         Platform.runLater(new Runnable(){
@@ -68,7 +76,9 @@ public class MeteoView extends Application implements Observer {
     }
 
 
-
+    /**
+     *  Set les paramètres de notre view
+     */
 
     @Override
     @SuppressWarnings("static-access")
@@ -94,6 +104,9 @@ public class MeteoView extends Application implements Observer {
             latch.countDown();
     }
 
+    /**
+     *  Methode de l'interface Observer, update le model
+     */
 
     @Override
     public void update(Observable o, Object arg) {
@@ -120,6 +133,9 @@ public class MeteoView extends Application implements Observer {
 
     }
 
+    /**
+     *  Initialise le controller
+     */
 
     public void initialize(MainController controller) {
 

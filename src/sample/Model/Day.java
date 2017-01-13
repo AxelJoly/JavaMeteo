@@ -17,8 +17,12 @@ public class Day extends Observable {
     public InfoMeteo info;
 
     public Day(){
-        System.out.println("yolo");
+
+
     }
+    /**
+     *  Appelle le prochain element de notre listIterator et le met dans notre objet courant
+     */
 
     public void setIter(ListIterator<InfoMeteo> iter){
         this.array=iter;
@@ -27,8 +31,12 @@ public class Day extends Observable {
         notifyObservers(this.info);
     }
 
+    /**
+     *  Methode appellé dans next() et last() pour changer la valeur de notre objet au jour suivant ou precedent
+     */
+
     public void setCourant(int current){
-        //System.out.println("lollllolol");
+
         if(current==1){
             if (array.hasPrevious()) {
                 info = array.previous();

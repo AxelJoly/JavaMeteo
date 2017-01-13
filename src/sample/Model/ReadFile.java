@@ -17,6 +17,9 @@ public class ReadFile {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReadFile.class);
 
+    /**
+     *  Charge le fichier texte dans notre ArrayList
+     */
 
     public void loadBookmarks(ArrayList<String> bookmarks, String file) {
         String chaine = "";
@@ -55,6 +58,10 @@ public class ReadFile {
 
 
     }
+
+    /**
+     *  Crée une copie du fichier .txt actuel, le modifie puis l'efface pour actualiser l'effacement d'une ville
+     */
 
     public void deleteItem(String value, String file) {
 

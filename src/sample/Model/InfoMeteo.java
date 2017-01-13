@@ -77,7 +77,9 @@ public class InfoMeteo {
     }
 
     public String getAfImage() {
+        System.out.println(afImage);
         return afImage;
+
     }
 
     public void setAfImage(String afImage) {

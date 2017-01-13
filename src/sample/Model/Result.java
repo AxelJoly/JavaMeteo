@@ -21,6 +21,9 @@ public class Result extends Observable{
     String ville;
     SaxReader pp= null;
 
+    /**
+     *  Initialise la connexion a l'API et le parsing des données dans le SaxReader
+     */
 
     public void parse(String ville) {
         this.ville = ville;

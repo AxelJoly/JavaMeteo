@@ -1,7 +1,6 @@
 Toulon
 Sanary
 Six-Fours
-Brest
 Marseille
 Tokyo
 Hiroshima
@@ -9,3 +8,4 @@ Seoul
 Sherbrook
 Sherbrooke
 London
+yolo
